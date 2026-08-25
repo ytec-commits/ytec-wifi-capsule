@@ -1,0 +1,58 @@
+name: Bug report
+description: Y-TEC Wi-Fi Capsuleの不具合を報告します
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 実際のSSID、Wi-Fi共有キー、プロファイルXML、`.ywcwifi`は添付しないでください。
+  - type: input
+    id: version
+    attributes:
+      label: アプリのバージョン
+      placeholder: 1.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: key-mode
+    attributes:
+      label: ビルド種別
+      options:
+        - Y-TEC公式版
+        - カスタム鍵ビルド
+        - 公開ソース開発ビルド
+        - 不明
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windowsとビット数
+      placeholder: Windows 11 64ビット
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待した結果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 実際の結果
+    validations:
+      required: true
+  - type: checkboxes
+    id: sensitive
+    attributes:
+      label: 秘密情報
+      options:
+        - label: 実際のWi-Fi情報やバックアップファイルを含めていません
+          required: true

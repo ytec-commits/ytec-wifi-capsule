@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Ytec.WifiCapsule.Core/Ytec.WifiCapsule.Core.csproj" />
+    <Project Path="src/Ytec.WifiCapsule.Windows/Ytec.WifiCapsule.Windows.csproj" />
+    <Project Path="src/Ytec.WifiCapsule.App/Ytec.WifiCapsule.App.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ytec.WifiCapsule.Tests/Ytec.WifiCapsule.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyName>Ytec.WifiCapsule.Core</AssemblyName>
+    <RootNamespace>Ytec.WifiCapsule.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="all" />
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+</Project>

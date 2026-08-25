@@ -1,0 +1,17 @@
+﻿Y-TEC Wi-Fi Capsule source code
+
+Public repository:
+https://github.com/ytec-commits/ytec-wifi-capsule
+
+The source code, documentation source, and original project assets are
+available under Apache License 2.0.
+
+Y-TEC公式ビルドでは、既存バックアップとの互換性を保つため、公開ソースに
+含めない公式アプリ鍵をビルド時に埋め込みます。公開ソースの標準ビルドは、
+実データ用途ではない公開開発鍵を使用します。独自の32バイト鍵を指定して
+カスタムビルドを作成できますが、公式版とはバックアップ互換性がありません。
+
+The official Y-TEC build embeds a non-source compatibility key during the
+build. A standard public-source build uses a public development key and is
+not intended for real backups. Custom-key builds are not compatible with
+official Y-TEC backups.

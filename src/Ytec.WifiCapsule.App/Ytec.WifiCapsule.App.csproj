@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net461</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>YtecWifiCapsule</AssemblyName>
+    <RootNamespace>Ytec.WifiCapsule.App</RootNamespace>
+    <ApplicationManifest Condition="'$(UiTestBuild)' != 'true'">app.manifest</ApplicationManifest>
+    <ApplicationManifest Condition="'$(UiTestBuild)' == 'true'">app.ui-test.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <StartupObject>Ytec.WifiCapsule.App.App</StartupObject>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Authors>Y-TEC</Authors>
+    <Company>Y-TEC</Company>
+    <Product>Y-TEC Wi-Fi Capsule</Product>
+    <Description>Windows保存済みWi-Fi設定の暗号化バックアップ・復元</Description>
+    <DefineConstants Condition="'$(UiTestBuild)' == 'true'">$(DefineConstants);UI_TEST_BUILD</DefineConstants>
+    <DefineConstants Condition="'$(UiTestCaptureWide)' == 'true'">$(DefineConstants);UI_TEST_CAPTURE_WIDE</DefineConstants>
+    <DefineConstants Condition="'$(UiTestCaptureNarrow)' == 'true'">$(DefineConstants);UI_TEST_CAPTURE_NARROW</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ytec.WifiCapsule.Core\Ytec.WifiCapsule.Core.csproj" />
+    <ProjectReference Include="..\Ytec.WifiCapsule.Windows\Ytec.WifiCapsule.Windows.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\app-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

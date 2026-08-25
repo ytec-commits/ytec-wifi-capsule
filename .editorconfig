@@ -1,0 +1,24 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{cs,xaml}]
+indent_style = space
+indent_size = 4
+
+[*.{json,md,yml,yaml,ps1,xml,csproj,props,targets,slnx}]
+indent_style = space
+indent_size = 2
+
+[*.ps1]
+charset = utf-8-bom
+
+[お読みください.txt]
+charset = utf-8-bom
+
+[LICENSE.txt]
+charset = utf-8-bom

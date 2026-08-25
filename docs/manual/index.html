@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Y-TEC Wi-Fi Capsule 操作マニュアル</title>
+  <link rel="icon" type="image/png" href="app-icon.png">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070b16;
+      --surface: #10192a;
+      --surface-2: #15233a;
+      --line: #29425f;
+      --text: #eaf7ff;
+      --muted: #a4b9cd;
+      --cyan: #35d9f3;
+      --mint: #54e6b5;
+      --warning: #ffc857;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 85% 0%, rgba(53, 217, 243, .10), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      font-family: "Yu Gothic UI", "Meiryo UI", Meiryo, sans-serif;
+      line-break: strict;
+      line-height: 1.75;
+    }
+
+    p, li, td, .step, .note, .warning, .safe {
+      text-wrap: pretty;
+    }
+
+    a { color: var(--cyan); }
+
+    .page {
+      width: min(1060px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 72px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 24px;
+      align-items: center;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(135deg, #111d31, #0b1323);
+    }
+
+    .hero img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+
+    h1, h2, h3 { line-height: 1.35; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 42px);
+      letter-spacing: .02em;
+    }
+
+    .subtitle {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .version {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 4px 12px;
+      border: 1px solid rgba(84, 230, 181, .5);
+      border-radius: 999px;
+      color: var(--mint);
+      background: rgba(84, 230, 181, .08);
+      font-size: 13px;
+    }
+
+    nav, section {
+      margin-top: 22px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(16, 25, 42, .96);
+    }
+
+    nav ol {
+      columns: 2;
+      margin: 0;
+      padding-left: 24px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      color: var(--cyan);
+      font-size: 24px;
+    }
+
+    h3 {
+      margin: 20px 0 8px;
+      font-size: 18px;
+    }
+
+    p { margin: 8px 0; }
+    ul, ol { margin: 9px 0; padding-left: 26px; }
+    li + li { margin-top: 5px; }
+
+    .note, .warning, .safe {
+      margin: 14px 0;
+      padding: 13px 15px;
+      border-left: 4px solid var(--cyan);
+      border-radius: 7px;
+      background: #0b1424;
+    }
+
+    .warning {
+      border-left-color: var(--warning);
+      color: #ffe6a8;
+    }
+
+    .safe {
+      border-left-color: var(--mint);
+      color: #c6ffe9;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .step {
+      position: relative;
+      min-height: 52px;
+      padding: 12px 14px 12px 54px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #0b1424;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 13px;
+      top: 11px;
+      display: grid;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      border-radius: 50%;
+      color: #031018;
+      background: var(--cyan);
+      font-weight: 700;
+    }
+
+    figure {
+      margin: 18px 0 4px;
+      page-break-inside: avoid;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #08101e;
+    }
+
+    figcaption {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 12px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      color: var(--cyan);
+      background: #0b1424;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: #baf7ff;
+      background: #07101d;
+      font-family: Consolas, monospace;
+    }
+
+    footer {
+      margin-top: 26px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 620px) {
+      .page { width: min(100% - 18px, 1060px); padding-top: 12px; }
+      .hero { grid-template-columns: 64px 1fr; gap: 13px; padding: 16px; }
+      .hero > div { min-width: 0; }
+      .hero img { width: 60px; height: 60px; }
+      .hero h1 {
+        font-size: clamp(20px, 6vw, 25px);
+        overflow-wrap: anywhere;
+      }
+      nav, section { padding: 15px; }
+      nav ol { columns: 1; }
+      h2 { font-size: 21px; }
+      p, li, td, .step, .note, .warning, .safe {
+        overflow-wrap: anywhere;
+      }
+      table { font-size: 12px; }
+      th, td { padding: 7px; }
+    }
+
+    @media print {
+      @page { size: A4; margin: 13mm 13mm 15mm; }
+      :root { color-scheme: light; }
+      body { background: white; color: #17263a; font-size: 10pt; line-height: 1.55; }
+      .page { width: auto; padding: 0; }
+      .hero, nav, section {
+        border-color: #9bb1c5;
+        background: white;
+        box-shadow: none;
+      }
+      .hero { padding: 16px; }
+      .hero img { width: 72px; height: 72px; }
+      h1 { font-size: 25pt; color: #0d2740; }
+      h2 { color: #087e97; font-size: 17pt; }
+      h3 { color: #173d5b; }
+      .subtitle, figcaption, footer { color: #496278; }
+      a { color: #087e97; text-decoration: none; }
+      nav ol { columns: 2; }
+      .note, .warning, .safe, .step, th {
+        color: #17263a;
+        background: #f3f8fb;
+      }
+      .step::before { color: #06141c; }
+      table, th, td { border-color: #9bb1c5; }
+      code { color: #173d5b; background: #edf3f7; }
+      section {
+        break-inside: avoid-page;
+        page-break-inside: avoid;
+      }
+      h2, h3, .step, figure, .warning, .note, .safe, table {
+        break-inside: avoid-page;
+        page-break-inside: avoid;
+      }
+      nav { page-break-after: always; }
+      footer { page-break-before: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <img src="app-icon.png" alt="">
+      <div>
+        <h1>Y-TEC Wi-Fi Capsule</h1>
+        <p class="subtitle">操作マニュアル - 必要なWi-Fi設定だけを暗号化して持ち運ぶ</p>
+        <span class="version">Version 1.1.0 / 2026-08-25</span>
+      </div>
+    </header>
+
+    <nav aria-label="目次">
+      <h2>目次</h2>
+      <ol>
+        <li><a href="#about">このアプリについて</a></li>
+        <li><a href="#requirements">対応環境と起動</a></li>
+        <li><a href="#backup">バックアップ</a></li>
+        <li><a href="#restore">復元</a></li>
+        <li><a href="#overwrite">同名設定の扱い</a></li>
+        <li><a href="#security">暗号化と保管</a></li>
+        <li><a href="#trouble">困ったとき</a></li>
+        <li><a href="#limits">制限事項</a></li>
+      </ol>
+    </nav>
+
+    <section id="about">
+      <h2>1. このアプリについて</h2>
+      <p>Windowsに保存されているWi-Fi設定を一覧で確認し、必要な設定だけを1つの暗号化ファイルへ保存・復元するアプリです。</p>
+      <ul>
+        <li>パスワードや鍵ファイルの準備は不要です。</li>
+        <li>バックアップの拡張子は<code>.ywcwifi</code>です。</li>
+        <li>Wi-Fi設定の平文XMLをディスクへ保存しません。</li>
+        <li>外部通信、クラウド同期、アクセス解析はありません。</li>
+        <li>Y-TEC公式版は1.0.0以降の公式バックアップと互換性があります。</li>
+        <li>日本語と英語に対応し、起動後も画面上の［English／日本語］で切り替えられます。</li>
+      </ul>
+      <div class="safe">Wi-Fiの名前は選択のため画面へ表示します。Wi-Fiキーそのものを画面やログへ表示する機能はありません。</div>
+    </section>
+
+    <section id="requirements">
+      <h2>2. 対応環境と起動</h2>
+      <table>
+        <tr><th>項目</th><th>内容</th></tr>
+        <tr><td>Windows</td><td>Windows 7 SP1 / 8 / 8.1 / 10 / 11</td></tr>
+        <tr><td>CPU</td><td>32ビット / 64ビット</td></tr>
+        <tr><td>必要環境</td><td>.NET Framework 4.6.1以降、Wi-Fiアダプター、WLAN AutoConfig</td></tr>
+        <tr><td>権限</td><td>起動時に管理者権限が必要</td></tr>
+      </table>
+
+      <div class="steps">
+        <div class="step">配布ZIPを任意のフォルダーへ展開します。ZIPの中から直接起動しないでください。</div>
+        <div class="step"><code>YtecWifiCapsule.exe</code>をダブルクリックします。</div>
+        <div class="step">ユーザーアカウント制御が表示されたら、発行元と配布元を確認して［はい］を選びます。</div>
+      </div>
+
+      <div class="note">初期表示はWindowsの表示言語が日本語なら日本語、それ以外は英語です。画面で切り替えた言語は起動中だけ有効で、操作マニュアルも現在の言語で開きます。</div>
+      <div class="warning">一般公開初版は未署名です。配布ページに記載したSHA-256と、ZIPのSHA-256が一致することを確認してください。</div>
+      <div class="note">Windows 7 / 8 / 8.1はOS自体のサポートが終了しています。本アプリが動作しても、OSの安全性は保証されません。</div>
+    </section>
+
+    <section id="backup">
+      <h2>3. Wi-Fi設定をバックアップする</h2>
+      <div class="steps">
+        <div class="step">［バックアップ］タブを開きます。</div>
+        <div class="step">対象のWi-Fiアダプターを選びます。表示が古い場合は［一覧を更新］を押します。</div>
+        <div class="step">保存したいWi-Fi設定だけをチェックします。［すべて選択］と［選択解除］も使えます。</div>
+        <div class="step">［選択した設定をバックアップ］を押し、確認画面で件数を確認します。</div>
+        <div class="step">保存先と新しいファイル名を指定します。同名ファイルは上書きしません。</div>
+        <div class="step">「バックアップ完了」が表示されたら、ファイルを安全な保存先へ保管します。</div>
+      </div>
+
+      <figure>
+        <img src="screenshots/main-backup.png" alt="バックアップ画面">
+        <figcaption>バックアップ画面。必要なプロファイルだけをチェックします。</figcaption>
+      </figure>
+
+      <div class="note">バックアップ直前に設定が変わると処理を中止します。［一覧を更新］後、選び直してください。</div>
+    </section>
+
+    <section id="restore">
+      <h2>4. Wi-Fi設定を復元する</h2>
+      <div class="steps">
+        <div class="step">［復元］タブを開きます。</div>
+        <div class="step">［バックアップファイルを選択］から<code>.ywcwifi</code>を開きます。</div>
+        <div class="step">作成日時と件数を確認し、復元する設定だけをチェックします。</div>
+        <div class="step">復元先のWi-Fiアダプターを選びます。</div>
+        <div class="step">通常は上書きチェックを付けずに［選択した設定を復元］を押します。</div>
+        <div class="step">復元・変更なし・失敗の件数を確認します。</div>
+      </div>
+
+      <figure>
+        <img src="screenshots/main-restore.png" alt="復元画面">
+        <figcaption>復元画面。暗号化ファイルを検証した後で復元項目を選びます。</figcaption>
+      </figure>
+
+      <div class="safe">復元後はWindowsのWi-Fi設定画面を開き、対象ネットワークへ接続できることを確認してください。</div>
+    </section>
+
+    <section id="overwrite">
+      <h2>5. 同名設定の扱い</h2>
+      <p>復元一覧の右側に、復元先での状態が表示されます。</p>
+      <table>
+        <tr><th>表示</th><th>既定の動作</th></tr>
+        <tr><td>新規</td><td>選択するとWindowsへ追加します。</td></tr>
+        <tr><td>登録済み</td><td>上書き未許可では変更せずスキップします。</td></tr>
+      </table>
+      <div class="warning">［同名の保存済みWi-Fi設定も上書きする］を有効にすると、選択した同名設定を置き換えます。現在の設定を残したい場合は有効にしないでください。</div>
+    </section>
+
+    <section id="security">
+      <h2>6. 暗号化と保管</h2>
+      <ul>
+        <li>AES-256-CBCで暗号化し、HMAC-SHA-256で改ざんを検知します。</li>
+        <li>バックアップごとにランダムなソルトとIVを使います。</li>
+        <li>改ざん検知に成功するまで復号しません。</li>
+        <li>パスワード、鍵ファイル、PC固有の鍵は使いません。</li>
+      </ul>
+      <p>内蔵鍵方式のため、バックアップを別PCへ移し、本アプリから復元できます。</p>
+      <div class="note">Y-TEC公式ビルドは、既存バックアップとの互換性を保つ公式アプリ鍵をビルド時に埋め込みます。公式鍵は公開ソースに含まれません。</div>
+      <div class="warning">公開ソースの標準ビルドは、値が公開されている開発鍵を使用します。画面上部に警告が出るビルドを実データのバックアップへ使用しないでください。カスタム鍵ビルドはY-TEC公式版と互換性がありません。</div>
+      <div class="warning">公式版でも、実行ファイルやメモリを専門的に解析する相手には秘匿性を保証できません。バックアップファイルを公開したり、第三者へ渡したりしないでください。</div>
+      <p>重要な設定は、暗号化ファイルだけに頼らず複数の安全な媒体へ保管してください。</p>
+    </section>
+
+    <section id="trouble">
+      <h2>7. 困ったとき</h2>
+      <table>
+        <tr>
+          <th>症状</th>
+          <th>確認すること</th>
+        </tr>
+        <tr>
+          <td>Wi-Fiアダプターがない</td>
+          <td>無線LAN機器が有効か、WLAN AutoConfigサービスが動作しているか確認します。</td>
+        </tr>
+        <tr>
+          <td>保存設定が出ない</td>
+          <td>正しいアダプターを選び、［一覧を更新］を押します。</td>
+        </tr>
+        <tr>
+          <td>キーを取得できない</td>
+          <td>管理者として起動しているか確認します。管理ポリシーによっては取得できません。</td>
+        </tr>
+        <tr>
+          <td>バックアップを開けない</td>
+          <td>拡張子、ファイル欠損、別製品のファイル、改ざんの有無を確認します。</td>
+        </tr>
+        <tr>
+          <td>復元に失敗する</td>
+          <td>移行先OSやアダプターの認証対応と、管理者としての起動を確認します。</td>
+        </tr>
+        <tr>
+          <td>同名設定が変わらない</td>
+          <td>安全のため既定ではスキップします。置き換えてよい場合だけ上書きを有効にします。</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="limits">
+      <h2>8. 制限事項</h2>
+      <ul>
+        <li>Wi-Fiへ自動接続するアプリではありません。</li>
+        <li>近くのネットワーク、BSSID、位置情報を取得しません。</li>
+        <li>企業802.1X証明書、外部証明書、スマートカード、ハードウェア鍵の移行を保証しません。</li>
+        <li>新しいWindows固有の認証方式を古いWindowsが理解できない場合、登録に失敗します。</li>
+        <li>Windows on ARM、Windows Server、macOS、Linux、スマートフォンには対応しません。</li>
+        <li>未署名版ではWindows SmartScreenが警告する場合があります。警告を回避するよう案内する機能はありません。</li>
+        <li>オープンソースであることは、第三者ビルドがY-TEC公式版であることや、公式バックアップとの互換性を意味しません。</li>
+      </ul>
+    </section>
+
+    <footer>
+      Y-TEC Wi-Fi Capsule 操作マニュアル 1.1.0<br>
+      Copyright © 2026 Y-TEC
+    </footer>
+  </main>
+</body>
+</html>

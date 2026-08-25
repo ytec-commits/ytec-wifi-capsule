@@ -1,0 +1,17 @@
+.vs/
+bin/
+obj/
+artifacts/
+output/
+tmp/
+.validation/
+.playwright-cli/
+TestResults/
+*.user
+*.suo
+*.partial
+*.pfx
+*.p12
+*.snk
+*.key
+*.bin

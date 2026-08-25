@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyName>Ytec.WifiCapsule.Windows</AssemblyName>
+    <RootNamespace>Ytec.WifiCapsule.Windows</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ytec.WifiCapsule.Core\Ytec.WifiCapsule.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(YtecWifiCapsuleOfficialKeyFile)' != ''">
+    <EmbeddedResource Include="$(YtecWifiCapsuleOfficialKeyFile)"
+                      LogicalName="Ytec.WifiCapsule.Windows.OfficialApplicationKey"
+                      Link="OfficialApplicationKey.bin" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(YtecWifiCapsuleCustomKeyFile)' != ''">
+    <EmbeddedResource Include="$(YtecWifiCapsuleCustomKeyFile)"
+                      LogicalName="Ytec.WifiCapsule.Windows.CustomApplicationKey"
+                      Link="CustomApplicationKey.bin" />
+  </ItemGroup>
+
+  <Target Name="RejectMultipleApplicationKeys"
+          BeforeTargets="PrepareForBuild"
+          Condition="'$(YtecWifiCapsuleOfficialKeyFile)' != '' and '$(YtecWifiCapsuleCustomKeyFile)' != ''">
+    <Error Text="公式アプリ鍵とカスタム鍵は同時に指定できません。" />
+  </Target>
+
+  <Target Name="ValidateOfficialApplicationKey"
+          BeforeTargets="PrepareForBuild"
+          Condition="'$(YtecWifiCapsuleOfficialKeyFile)' != ''">
+    <Error Condition="!Exists('$(YtecWifiCapsuleOfficialKeyFile)')"
+           Text="指定された公式アプリ鍵ファイルが見つかりません。" />
+  </Target>
+
+  <Target Name="ValidateCustomApplicationKey"
+          BeforeTargets="PrepareForBuild"
+          Condition="'$(YtecWifiCapsuleCustomKeyFile)' != ''">
+    <Error Condition="!Exists('$(YtecWifiCapsuleCustomKeyFile)')"
+           Text="指定されたカスタム鍵ファイルが見つかりません。" />
+  </Target>
+</Project>

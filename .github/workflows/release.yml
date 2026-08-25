@@ -1,0 +1,147 @@
+name: Build release candidate
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version without v prefix
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-windows:
+    name: Build official portable package
+    runs-on: windows-2022
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.302
+
+      - name: Verify public-source boundary
+        shell: powershell
+        run: >
+          powershell.exe -NoProfile -ExecutionPolicy Bypass
+          -File .\eng\Test-PublicSource.ps1
+
+      - name: Verify Japanese and English resources
+        shell: powershell
+        run: >
+          powershell.exe -NoProfile -ExecutionPolicy Bypass
+          -File .\eng\Test-Localization.ps1
+
+      - name: Resolve release version
+        id: version
+        shell: pwsh
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          [xml]$props = Get-Content Directory.Build.props -Raw
+          $projectVersion = $props.Project.PropertyGroup.Version
+          $requestedVersion = if ($env:GITHUB_REF_TYPE -eq 'tag') {
+            $env:GITHUB_REF_NAME.TrimStart('v')
+          }
+          else {
+            $env:INPUT_VERSION
+          }
+          if ($requestedVersion -ne $projectVersion) {
+            throw "Requested version $requestedVersion does not match project version $projectVersion"
+          }
+          "version=$projectVersion" >> $env:GITHUB_OUTPUT
+
+      - name: Build and verify unsigned official package
+        shell: pwsh
+        env:
+          OFFICIAL_KEY_B64: ${{ secrets.YTEC_WIFI_CAPSULE_OFFICIAL_KEY_B64 }}
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:OFFICIAL_KEY_B64)) {
+            throw 'Official application key secret is not configured.'
+          }
+          $keyPath = Join-Path $env:RUNNER_TEMP 'ytec-wifi-capsule-official-key.bin'
+          $key = [Convert]::FromBase64String($env:OFFICIAL_KEY_B64)
+          try {
+            if ($key.Length -ne 32) {
+              throw 'Official application key must be 32 bytes.'
+            }
+            [IO.File]::WriteAllBytes($keyPath, $key)
+            powershell.exe -NoProfile -ExecutionPolicy Bypass `
+              -File .\eng\New-PortableRelease.ps1 `
+              -Version $env:RELEASE_VERSION `
+              -OfficialKeyFile $keyPath
+            if ($LASTEXITCODE -ne 0) {
+              throw 'Portable release build failed.'
+            }
+            $zip = ".\artifacts\release\Y-TEC-Wi-Fi-Capsule-$env:RELEASE_VERSION-portable-unsigned.zip"
+            powershell.exe -NoProfile -ExecutionPolicy Bypass `
+              -File .\eng\Test-PortableRelease.ps1 `
+              -ZipPath $zip `
+              -ExpectedVersion $env:RELEASE_VERSION
+            if ($LASTEXITCODE -ne 0) {
+              throw 'Portable release validation failed.'
+            }
+          }
+          finally {
+            if ($key) {
+              [Array]::Clear($key, 0, $key.Length)
+            }
+            if (Test-Path -LiteralPath $keyPath) {
+              Remove-Item -LiteralPath $keyPath -Force
+            }
+          }
+
+      - name: Upload unsigned release artifact
+        id: upload-unsigned
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ytec-wifi-capsule-unsigned-${{ github.ref_name }}
+          path: |
+            artifacts/release/Y-TEC-Wi-Fi-Capsule-*-portable-unsigned/YtecWifiCapsule.exe
+            artifacts/release/Y-TEC-Wi-Fi-Capsule-*-portable-unsigned.zip
+            artifacts/release/Y-TEC-Wi-Fi-Capsule-*-portable-unsigned.zip.sha256
+            docs/manual/Y-TEC Wi-Fi Capsule 操作マニュアル.pdf
+            docs/manual/en/Y-TEC Wi-Fi Capsule User Manual.pdf
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Create draft GitHub Release
+        if: github.ref_type == 'tag'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          $zip = "artifacts/release/Y-TEC-Wi-Fi-Capsule-$env:RELEASE_VERSION-portable-unsigned.zip"
+          $hash = "$zip.sha256"
+          $manual = "docs/manual/Y-TEC Wi-Fi Capsule 操作マニュアル.pdf"
+          $manualEn = "docs/manual/en/Y-TEC Wi-Fi Capsule User Manual.pdf"
+          $notes = @'
+          This is an unsigned portable build. Verify the published SHA-256 before running it.
+
+          SignPath Foundation code signing has been requested but is not yet available for this release.
+          '@
+          gh release create $env:GITHUB_REF_NAME `
+            --draft `
+            --verify-tag `
+            --title "Y-TEC Wi-Fi Capsule $env:RELEASE_VERSION" `
+            --notes $notes `
+            $zip $hash $manual $manualEn
+
+# SignPath Foundationで採択後、upload-unsignedのartifact-idを
+# signpath/github-action-submit-signing-requestへ渡す署名ステップを追加します。
+# 採択前のArtifactとdraft Releaseは必ず「未署名」として扱います。

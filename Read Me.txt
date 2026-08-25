@@ -1,0 +1,39 @@
+﻿Y-TEC Wi-Fi Capsule 1.1.0
+
+This portable app backs up and restores only the Wi-Fi profiles you select
+from the profiles saved in Windows. Backup files are encrypted.
+
+[STARTUP]
+1. Extract the ZIP to a folder.
+2. Double-click YtecWifiCapsule.exe.
+3. Administrator privileges are required. Select Yes when Windows User
+   Account Control appears.
+
+[SUPPORTED SYSTEMS]
+Windows 7 SP1 / 8 / 8.1 / 10 / 11
+32-bit / 64-bit
+.NET Framework 4.6.1 or later
+
+[IMPORTANT]
+- Backup files use the .ywcwifi extension.
+- No password or external key file is required. Official Y-TEC builds can
+  restore an official backup on another PC.
+- Official Y-TEC backups from version 1.0.0 onward are compatible.
+- A standard public-source build uses the public development key and is not
+  intended for real data. Custom-key builds are not compatible with the
+  official build.
+- Plaintext Wi-Fi XML is never saved to disk.
+- Overwriting a Wi-Fi profile with the same name is disabled by default.
+- Confidentiality against advanced executable analysis is not guaranteed.
+- Enterprise certificates and authentication methods unsupported by the
+  destination system may not be restored.
+- The app supports Japanese and English. Use English / Japanese in the app
+  to switch the display language for the current session.
+- This build is unsigned. Verify its SHA-256 against the official download
+  page before running it.
+
+For detailed instructions, open index.html or the PDF in the User Manual
+folder.
+
+Source code:
+https://github.com/ytec-commits/ytec-wifi-capsule

@@ -1,0 +1,24 @@
+name: Feature request
+description: 機能や使いやすさの改善を提案します
+title: "[Feature] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 解決したいこと
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 提案する内容
+    validations:
+      required: true
+  - type: textarea
+    id: security
+    attributes:
+      label: 暗号形式・互換性・外部通信への影響
+      description: 影響がない場合は「なし」と記載してください。
+    validations:
+      required: true

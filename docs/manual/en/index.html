@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Y-TEC Wi-Fi Capsule User Manual</title>
+  <link rel="icon" type="image/png" href="app-icon.png">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070b16;
+      --surface: #10192a;
+      --line: #29425f;
+      --text: #eaf7ff;
+      --muted: #a4b9cd;
+      --cyan: #35d9f3;
+      --mint: #54e6b5;
+      --warning: #ffc857;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 85% 0%, rgba(53, 217, 243, .10), transparent 30rem), var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.7;
+    }
+    p, li, td, .step, .note, .warning, .safe {
+      text-wrap: pretty;
+      overflow-wrap: break-word;
+    }
+    a { color: var(--cyan); }
+    .page { width: min(1060px, calc(100% - 32px)); margin: 0 auto; padding: 34px 0 72px; }
+    .hero {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 24px;
+      align-items: center;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(135deg, #111d31, #0b1323);
+    }
+    .hero img { width: 100px; height: 100px; object-fit: contain; }
+    h1, h2, h3 { line-height: 1.3; }
+    h1 { margin: 0; font-size: clamp(26px, 4vw, 42px); letter-spacing: .02em; }
+    .subtitle { margin: 7px 0 0; color: var(--muted); font-size: 17px; }
+    .version {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 4px 12px;
+      border: 1px solid rgba(84, 230, 181, .5);
+      border-radius: 999px;
+      color: var(--mint);
+      background: rgba(84, 230, 181, .08);
+      font-size: 13px;
+    }
+    nav, section {
+      margin-top: 22px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(16, 25, 42, .96);
+    }
+    nav ol { columns: 2; margin: 0; padding-left: 24px; }
+    h2 { margin: 0 0 14px; color: var(--cyan); font-size: 24px; }
+    h3 { margin: 20px 0 8px; font-size: 18px; }
+    p { margin: 8px 0; }
+    ul, ol { margin: 9px 0; padding-left: 26px; }
+    li + li { margin-top: 5px; }
+    .note, .warning, .safe {
+      margin: 14px 0;
+      padding: 13px 15px;
+      border-left: 4px solid var(--cyan);
+      border-radius: 7px;
+      background: #0b1424;
+    }
+    .warning { border-left-color: var(--warning); color: #ffe6a8; }
+    .safe { border-left-color: var(--mint); color: #c6ffe9; }
+    .steps { counter-reset: step; display: grid; gap: 10px; margin-top: 14px; }
+    .step {
+      position: relative;
+      min-height: 52px;
+      padding: 12px 14px 12px 54px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #0b1424;
+    }
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 13px;
+      top: 11px;
+      display: grid;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      border-radius: 50%;
+      color: #031018;
+      background: var(--cyan);
+      font-weight: 700;
+    }
+    figure { margin: 18px 0 4px; page-break-inside: avoid; }
+    figure img { display: block; width: 100%; border: 1px solid var(--line); border-radius: 10px; background: #08101e; }
+    figcaption { margin-top: 7px; color: var(--muted); font-size: 13px; text-align: center; }
+    table { width: 100%; margin-top: 12px; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 10px; border: 1px solid var(--line); vertical-align: top; text-align: left; }
+    th { color: var(--cyan); background: #0b1424; }
+    code { padding: 2px 6px; border-radius: 5px; color: #baf7ff; background: #07101d; font-family: Consolas, monospace; }
+    footer { margin-top: 26px; color: var(--muted); text-align: center; font-size: 13px; }
+    @media (max-width: 620px) {
+      .page { width: min(100% - 18px, 1060px); padding-top: 12px; }
+      .hero { grid-template-columns: 64px 1fr; gap: 13px; padding: 16px; }
+      .hero > div { min-width: 0; }
+      .hero img { width: 60px; height: 60px; }
+      .hero h1 { font-size: clamp(20px, 6vw, 25px); overflow-wrap: anywhere; }
+      nav, section { padding: 15px; }
+      nav ol { columns: 1; }
+      h2 { font-size: 21px; }
+      table { font-size: 12px; }
+      th, td { padding: 7px; }
+    }
+    @media print {
+      @page { size: A4; margin: 13mm 13mm 15mm; }
+      :root { color-scheme: light; }
+      body { background: white; color: #17263a; font-size: 10pt; line-height: 1.5; }
+      .page { width: auto; padding: 0; }
+      .hero, nav, section { border-color: #9bb1c5; background: white; box-shadow: none; }
+      .hero { padding: 16px; }
+      .hero img { width: 72px; height: 72px; }
+      h1 { color: #0d2740; font-size: 25pt; }
+      h2 { color: #087e97; font-size: 17pt; }
+      h3 { color: #173d5b; }
+      .subtitle, figcaption, footer { color: #496278; }
+      a { color: #087e97; text-decoration: none; }
+      nav ol { columns: 2; }
+      .note, .warning, .safe, .step, th { color: #17263a; background: #f3f8fb; }
+      .step::before { color: #06141c; }
+      table, th, td { border-color: #9bb1c5; }
+      code { color: #173d5b; background: #edf3f7; }
+      h2, h3, .step, figure, .warning, .note, .safe, table { break-inside: avoid-page; page-break-inside: avoid; }
+      nav { page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <img src="app-icon.png" alt="">
+      <div>
+        <h1>Y-TEC Wi-Fi Capsule</h1>
+        <p class="subtitle">User Manual — Carry only the Wi-Fi profiles you need in an encrypted file</p>
+        <span class="version">Version 1.1.0 / August 25, 2026</span>
+      </div>
+    </header>
+
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#about">About this app</a></li>
+        <li><a href="#requirements">Requirements and startup</a></li>
+        <li><a href="#backup">Back up profiles</a></li>
+        <li><a href="#restore">Restore profiles</a></li>
+        <li><a href="#overwrite">Profiles with the same name</a></li>
+        <li><a href="#security">Encryption and storage</a></li>
+        <li><a href="#trouble">Troubleshooting</a></li>
+        <li><a href="#limits">Limitations</a></li>
+      </ol>
+    </nav>
+
+    <section id="about">
+      <h2>1. About This App</h2>
+      <p>Y-TEC Wi-Fi Capsule lists the Wi-Fi profiles saved in Windows and lets you save and restore only the profiles you choose in one encrypted file.</p>
+      <ul>
+        <li>No password or key file needs to be prepared.</li>
+        <li>Backup files use the <code>.ywcwifi</code> extension.</li>
+        <li>Plaintext Wi-Fi profile XML is never saved to disk.</li>
+        <li>The app has no external communication, cloud sync, or analytics.</li>
+        <li>Official Y-TEC builds are compatible with official backups from version 1.0.0 onward.</li>
+        <li>The interface supports Japanese and English and can be switched while the app is running.</li>
+      </ul>
+      <div class="safe">Wi-Fi names are shown so that you can select profiles. The app never displays Wi-Fi keys on screen or writes them to a log.</div>
+    </section>
+
+    <section id="requirements">
+      <h2>2. Requirements and Startup</h2>
+      <table>
+        <tr><th>Item</th><th>Requirement</th></tr>
+        <tr><td>Windows</td><td>Windows 7 SP1 / 8 / 8.1 / 10 / 11</td></tr>
+        <tr><td>CPU</td><td>32-bit or 64-bit</td></tr>
+        <tr><td>Environment</td><td>.NET Framework 4.6.1 or later, a Wi-Fi adapter, and WLAN AutoConfig</td></tr>
+        <tr><td>Permissions</td><td>Administrator privileges are required at startup</td></tr>
+      </table>
+      <div class="steps">
+        <div class="step">Extract the distribution ZIP to any folder. Do not launch the app from inside the ZIP.</div>
+        <div class="step">Double-click <code>YtecWifiCapsule.exe</code>.</div>
+        <div class="step">If User Account Control appears, verify the publisher and download source, then select <strong>Yes</strong>.</div>
+      </div>
+      <div class="note">The initial language is Japanese when the Windows display language is Japanese; otherwise it is English. Use <strong>English / 日本語</strong> in the app to switch for the current session. The manual opens in the current app language.</div>
+      <div class="warning">The initial public release is unsigned. Compare the ZIP's SHA-256 with the value on the official download page before running it.</div>
+      <div class="note">Windows 7, 8, and 8.1 are no longer supported by Microsoft. App compatibility does not make those operating systems secure.</div>
+    </section>
+
+    <section id="backup">
+      <h2>3. Back Up Wi-Fi Profiles</h2>
+      <div class="steps">
+        <div class="step">Open the <strong>Backup</strong> tab.</div>
+        <div class="step">Select the Wi-Fi adapter. If the list is outdated, select <strong>Refresh List</strong>.</div>
+        <div class="step">Select only the profiles you want to save. You can also use <strong>Select All</strong> and <strong>Clear Selection</strong>.</div>
+        <div class="step">Select <strong>Back Up Selected Profiles</strong> and verify the profile count in the confirmation dialog.</div>
+        <div class="step">Choose a destination and a new file name. Existing files are never overwritten.</div>
+        <div class="step">When <strong>Backup Complete</strong> appears, move the file to a secure storage location.</div>
+      </div>
+      <figure>
+        <img src="screenshots/main-backup.png" alt="Backup screen">
+        <figcaption>Backup screen. Select only the profiles you need.</figcaption>
+      </figure>
+      <div class="note">If a profile changes after selection, the app stops. Refresh the list and select the profiles again.</div>
+    </section>
+
+    <section id="restore">
+      <h2>4. Restore Wi-Fi Profiles</h2>
+      <div class="steps">
+        <div class="step">Open the <strong>Restore</strong> tab.</div>
+        <div class="step">Use <strong>Select Backup File</strong> to open a <code>.ywcwifi</code> file.</div>
+        <div class="step">Verify the creation time and profile count, then select only the profiles you want to restore.</div>
+        <div class="step">Select the destination Wi-Fi adapter.</div>
+        <div class="step">Normally, leave overwrite disabled and select <strong>Restore Selected Profiles</strong>.</div>
+        <div class="step">Check the restored, unchanged, and failed counts.</div>
+      </div>
+      <figure>
+        <img src="screenshots/main-restore.png" alt="Restore screen">
+        <figcaption>Restore screen. Select profiles only after the encrypted file has been validated.</figcaption>
+      </figure>
+      <div class="safe">After restoring, open Windows Wi-Fi settings and verify that the target network can be connected.</div>
+    </section>
+
+    <section id="overwrite">
+      <h2>5. Profiles with the Same Name</h2>
+      <p>The restore list shows the state of each profile on the destination adapter.</p>
+      <table>
+        <tr><th>Display</th><th>Default behavior</th></tr>
+        <tr><td>New</td><td>The selected profile is added to Windows.</td></tr>
+        <tr><td>Already saved</td><td>The existing profile is skipped without changes when overwrite is disabled.</td></tr>
+      </table>
+      <div class="warning">Enabling <strong>Overwrite saved Wi-Fi profiles with the same name</strong> replaces selected profiles with matching names. Leave it disabled if the current profiles must be preserved.</div>
+    </section>
+
+    <section id="security">
+      <h2>6. Encryption and Storage</h2>
+      <ul>
+        <li>AES-256-CBC encrypts the content, and HMAC-SHA-256 detects tampering.</li>
+        <li>Each backup uses a random salt and initialization vector.</li>
+        <li>The app does not decrypt content until authentication succeeds.</li>
+        <li>No password, external key file, or PC-specific key is used.</li>
+      </ul>
+      <p>Because official builds use an embedded application key, a backup can be moved to another PC and restored with the official app.</p>
+      <div class="note">Official Y-TEC builds embed the compatibility key during the build. The official key is not included in the public source code.</div>
+      <div class="warning">A standard public-source build uses a publicly known development key and displays a warning at the top of the window. Do not use that build for real data. Custom-key builds are not compatible with official Y-TEC builds.</div>
+      <div class="warning">Even an official build cannot guarantee confidentiality against an attacker capable of advanced executable or memory analysis. Never publish or give a backup file to an untrusted party.</div>
+      <p>Keep important profiles on more than one secure storage medium rather than relying on a single encrypted file.</p>
+    </section>
+
+    <section id="trouble">
+      <h2>7. Troubleshooting</h2>
+      <table>
+        <tr><th>Symptom</th><th>What to check</th></tr>
+        <tr><td>No Wi-Fi adapter</td><td>Confirm that the wireless device is enabled and the WLAN AutoConfig service is running.</td></tr>
+        <tr><td>No saved profiles</td><td>Select the correct adapter, then select <strong>Refresh List</strong>.</td></tr>
+        <tr><td>The Wi-Fi key cannot be read</td><td>Confirm that the app is running as administrator. A management policy may prevent access.</td></tr>
+        <tr><td>A backup will not open</td><td>Check the extension, file completeness, app build compatibility, and possible tampering.</td></tr>
+        <tr><td>Restore fails</td><td>Check administrator privileges and whether the destination OS and adapter support the authentication method.</td></tr>
+        <tr><td>A same-name profile does not change</td><td>The safe default is to skip it. Enable overwrite only when replacement is intended.</td></tr>
+      </table>
+    </section>
+
+    <section id="limits">
+      <h2>8. Limitations</h2>
+      <ul>
+        <li>The app does not automatically connect to Wi-Fi networks.</li>
+        <li>It does not collect nearby networks, BSSIDs, or location data.</li>
+        <li>Migration of enterprise 802.1X certificates, external certificates, smart cards, and hardware keys is not guaranteed.</li>
+        <li>Registration can fail when an older Windows version does not understand a newer authentication method.</li>
+        <li>Windows on ARM, Windows Server, macOS, Linux, and mobile operating systems are not supported.</li>
+        <li>Windows SmartScreen may warn about unsigned builds. The app does not provide instructions to bypass security warnings.</li>
+        <li>Open-source availability does not make a third-party build official or compatible with official backups.</li>
+      </ul>
+    </section>
+
+    <footer>
+      Y-TEC Wi-Fi Capsule User Manual 1.1.0<br>
+      Copyright © 2026 Y-TEC
+    </footer>
+  </main>
+</body>
+</html>
