@@ -36,4 +36,4 @@ For detailed instructions, open index.html or the PDF in the User Manual
 folder.
 
 Source code:
-https://github.com/ytec-commits/ytec-wifi-capsule
+https://github.com/ytec-forge-commits/ytec-wifi-capsule

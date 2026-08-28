@@ -1,7 +1,7 @@
 ﻿Y-TEC Wi-Fi Capsule source code
 
 Public repository:
-https://github.com/ytec-commits/ytec-wifi-capsule
+https://github.com/ytec-forge-commits/ytec-wifi-capsule
 
 The source code, documentation source, and original project assets are
 available under Apache License 2.0.

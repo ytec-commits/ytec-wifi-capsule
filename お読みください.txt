@@ -31,4 +31,4 @@ Windows 7 SP1 / 8 / 8.1 / 10 / 11
 ご覧ください。
 
 ソースコード:
-https://github.com/ytec-commits/ytec-wifi-capsule
+https://github.com/ytec-forge-commits/ytec-wifi-capsule

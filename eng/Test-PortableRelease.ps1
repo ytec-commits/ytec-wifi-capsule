@@ -192,7 +192,7 @@ $sourceNotice = Get-Content -LiteralPath (
     Join-Path $extractDirectory 'SOURCE.txt'
 ) -Raw -Encoding UTF8
 if (
-    $sourceNotice -notmatch 'github\.com/ytec-commits/ytec-wifi-capsule' -or
+    $sourceNotice -notmatch 'github\.com/ytec-forge-commits/ytec-wifi-capsule' -or
     $sourceNotice -notmatch '公式ビルド' -or
     $sourceNotice -notmatch '公開ソース'
 ) {

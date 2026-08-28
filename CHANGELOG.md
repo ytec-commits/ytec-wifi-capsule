@@ -3,7 +3,7 @@
 ## 1.1.0 - 2026-08-25
 
 - ソースコードをApache License 2.0で公開
-- GitHubリポジトリを`ytec-commits` organizationへ移行
+- GitHubリポジトリを`ytec-forge-commits` organizationへ移行
 - Y-TEC公式アプリ鍵を公開ソースから分離し、ビルド時注入へ変更
 - 公開開発鍵ビルドとカスタム鍵ビルドを追加し、非公式ビルドをUIで明示
 - Windows表示言語による日本語／英語の自動選択と画面内切替を追加
